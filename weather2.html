@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Weather App</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: linear-gradient(to right, ja#161c20, #3c646a);
+      color: #fff;
+      padding: 30px;
+    }
+    input {
+  border: 0;
+            outline: 0;
+            background-color: #ebfffc;
+            color: #555;
+            padding: 10px 25px;
+            height: 40px;
+            border-radius: 30px;
+            flex:1;
+            margin-right: 20px;
+            font-size: 20px;
+            margin-left: 8%;
+            margin-top: 2%;
+            
+    }
+    button {
+      border: 0;
+            outline: 0;
+            background-color: #ebfffc;
+            border-radius: 50%;
+            width: 70px;
+            height: 60px;
+            cursor: pointer;
+            margin-top: 2%;
+            margin-left: 0;
+    }
+    
+    #weather {
+      margin-top: 20px;
+      font-size: 20px;
+
+    }
+    .card{
+        background: linear-gradient(135deg,#21bad2,#312d4a);
+      width: 30%;
+      height: 450px;
+      margin-left: 35%;
+      border-radius: 10px;
+    }
+    h1{
+      margin-left: -2%;
+      font-size: 300%;
+      color: rgb(255, 246, 246);
+      text-align: center;
+
+    }
+  </style>
+</head>
+<body bgcolor="black">
+  <h1>🌤 Weather App</h1>
+  <div class="card">
+    
+<input type="text" id="city" placeholder="Enter city name" >
+  <button onclick="getWeather()">Search</button>
+  <!-- <img src="image_weather-removebg-preview.png" alt=""> -->
+  
+  <div id="weather">
+
+  </div>
+  <img src="image_weather-removebg-preview.png" alt="">
+  </div>
+
+  <script>
+    async function getWeather() {
+      
+      const city = document.getElementById("city").value;
+      const apiKey = "5016a7b4b46e0dfac91915c122a5a168";
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+      
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.cod === 200) {
+        document.getElementById("weather").innerHTML =
+          `City: ${data.name } <br>
+           🌡 Temp: ${data.main.temp}°C <br>
+           ☁ Weather: ${data.weather[0].description}`;
+      } else {
+        document.getElementById("weather").innerHTML = "City not found ";
+      }
+    }
+  </script>
+</body>
+</html>
